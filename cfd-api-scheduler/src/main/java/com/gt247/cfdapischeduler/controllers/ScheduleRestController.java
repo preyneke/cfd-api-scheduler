@@ -2,7 +2,8 @@ package com.gt247.cfdapischeduler.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gt247.cfdapischeduler.schedulingtasks.ScheduledTasks;
+import com.gt247.cfdapischeduler.schedulingtasks.UsdScheduledTasks;
+import com.gt247.cfdapischeduler.schedulingtasks.ZarScheduledTasks;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,25 +26,41 @@ public class ScheduleRestController {
     private ScheduledAnnotationBeanPostProcessor postProcessor;
 
     @Autowired
-    private ScheduledTasks scheduledTasks;
+    private ZarScheduledTasks zarScheduledTasks;
+
+    @Autowired
+    private UsdScheduledTasks usdScheduledTasks;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    @ApiOperation(value="This is to stop Schedular")
-    @GetMapping(value = "/stopScheduler")
-    public String stopSchedule() {
-        postProcessor.postProcessBeforeDestruction(scheduledTasks, SCHEDULED_TASKS);
+    @ApiOperation(value="This is to stop ZAR Scheduler")
+    @GetMapping(value = "/stopZarScheduler")
+    public String stopZarSchedule() {
+        postProcessor.postProcessBeforeDestruction(zarScheduledTasks, SCHEDULED_TASKS);
         return "OK";
     }
 
-    @ApiOperation(value="This is to Stop scheduler")
-    @GetMapping(value = "/startScheduler")
-    public String startSchedule() {
-        postProcessor.postProcessAfterInitialization(scheduledTasks, SCHEDULED_TASKS);
+    @ApiOperation(value="This is to start ZAR scheduler")
+    @GetMapping(value = "/startZarScheduler")
+    public String startZarSchedule() {
+        postProcessor.postProcessAfterInitialization(zarScheduledTasks, SCHEDULED_TASKS);
         return "OK";
     }
 
+    @ApiOperation(value="This is to stop USD Scheduler")
+    @GetMapping(value = "/stopUsdScheduler")
+    public String stopUsdSchedule() {
+        postProcessor.postProcessBeforeDestruction(usdScheduledTasks, SCHEDULED_TASKS);
+        return "OK";
+    }
+
+    @ApiOperation(value="This is to Start USD scheduler")
+    @GetMapping(value = "/startUsdScheduler")
+    public String startUsdSchedule() {
+        postProcessor.postProcessAfterInitialization(usdScheduledTasks, SCHEDULED_TASKS);
+        return "OK";
+    }
     @GetMapping(value = "/listScheduler")
     public String listSchedules() throws JsonProcessingException {
         Set<ScheduledTask> setTasks = postProcessor.getScheduledTasks();

@@ -9,13 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
-public class ScheduledTasks {
-    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+public class UsdScheduledTasks { private static final Logger log = LoggerFactory.getLogger(ZarScheduledTasks.class);
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 2500)
     public void reportCurrentTime() {
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        log.info("The USD time is now {}", dateFormat.format(new Date()));
     }
 }
