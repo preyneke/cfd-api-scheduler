@@ -2,6 +2,7 @@ package com.gt247.cfdapischeduler.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gt247.cfdapischeduler.schedulingtasks.AudScheduledTasks;
 import com.gt247.cfdapischeduler.schedulingtasks.UsdScheduledTasks;
 import com.gt247.cfdapischeduler.schedulingtasks.ZarScheduledTasks;
 import io.swagger.annotations.Api;
@@ -18,10 +19,11 @@ import java.util.Set;
 
 @RestController
 @Api
-@RequestMapping("/test")
+@RequestMapping("/ExchangeSchedulers")
 public class ScheduleRestController {
 
     private static final String SCHEDULED_TASKS = "scheduledTasks";
+
     @Autowired
     private ScheduledAnnotationBeanPostProcessor postProcessor;
 
@@ -30,6 +32,9 @@ public class ScheduleRestController {
 
     @Autowired
     private UsdScheduledTasks usdScheduledTasks;
+
+    @Autowired
+    private AudScheduledTasks audScheduledTasks;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -59,6 +64,20 @@ public class ScheduleRestController {
     @GetMapping(value = "/startUsdScheduler")
     public String startUsdSchedule() {
         postProcessor.postProcessAfterInitialization(usdScheduledTasks, SCHEDULED_TASKS);
+        return "OK";
+    }
+
+    @ApiOperation(value="This is to stop USD Scheduler")
+    @GetMapping(value = "/stopAudScheduler")
+    public String stopAudSchedule() {
+        postProcessor.postProcessBeforeDestruction(audScheduledTasks, SCHEDULED_TASKS);
+        return "OK";
+    }
+
+    @ApiOperation(value="This is to Start USD scheduler")
+    @GetMapping(value = "/startAudScheduler")
+    public String startAudSchedule() {
+        postProcessor.postProcessAfterInitialization(audScheduledTasks, SCHEDULED_TASKS);
         return "OK";
     }
     @GetMapping(value = "/listScheduler")

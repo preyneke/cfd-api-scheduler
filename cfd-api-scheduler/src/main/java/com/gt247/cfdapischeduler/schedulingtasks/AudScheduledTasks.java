@@ -9,14 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
-public class UsdScheduledTasks {
+public class AudScheduledTasks {
 
     private static final Logger log = LoggerFactory.getLogger(ZarScheduledTasks.class);
-
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
     @Scheduled(fixedRate = 2500)
     public void reportCurrentTime() {
-        log.info("The USD time is now {}", dateFormat.format(new Date()));
+        log.info("The AUD time is now {}", dateFormat.format(new Date()));
     }
 }
