@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -84,6 +85,7 @@ public class ScheduleRestController {
     public String listSchedules() throws JsonProcessingException {
         Set<ScheduledTask> setTasks = postProcessor.getScheduledTasks();
         if (!setTasks.isEmpty()) {
+
             return objectMapper.writeValueAsString(setTasks);
         } else {
             return "No running tasks !";
