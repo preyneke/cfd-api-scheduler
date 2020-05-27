@@ -57,7 +57,45 @@
 			<version>2.9.2</version>
 		</dependency>
 	</dependencies>
+	<profiles>
+		<profile>
+			<id>UAT</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<dcx_api_trigger>6812eeec-cac3-48ff-86c1-c62054483215/trigger?runscope_environment=9c1c7c2f-4b35-43d1-9b1b-8afdc4cac7bf</dcx_api_trigger>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<finalName>CFDAPI-SCHEDULER-1.0</finalName>
+			</build>
+		</profile>
 
+		<profile>
+			<id>LIVE</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<dcx_api_trigger>f39940dd-0bff-4aaa-bbe8-6352dfceff18/trigger?runscope_environment=7143d963-44cd-4335-a591-36a3adad5272</dcx_api_trigger>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<finalName>CFDAPI-SCHEDULER-1.0</finalName>
+			</build>
+		</profile>
+	</profiles>
 	<build>
 		<plugins>
 			<plugin>

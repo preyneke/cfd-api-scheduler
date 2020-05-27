@@ -3,6 +3,7 @@ package com.gt247.cfdapischeduler.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gt247.cfdapischeduler.schedulingtasks.AudScheduledTasks;
+import com.gt247.cfdapischeduler.schedulingtasks.DcxScheduledTask;
 import com.gt247.cfdapischeduler.schedulingtasks.UsdScheduledTasks;
 import com.gt247.cfdapischeduler.schedulingtasks.ZarScheduledTasks;
 import io.swagger.annotations.Api;
@@ -38,6 +39,9 @@ public class ScheduleRestController {
     private AudScheduledTasks audScheduledTasks;
 
     @Autowired
+    private DcxScheduledTask dcxScheduledTask;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @ApiOperation(value="This is to stop ZAR Scheduler")
@@ -68,17 +72,31 @@ public class ScheduleRestController {
         return "OK";
     }
 
-    @ApiOperation(value="This is to stop USD Scheduler")
+    @ApiOperation(value="This is to stop AUD Scheduler")
     @GetMapping(value = "/stopAudScheduler")
     public String stopAudSchedule() {
         postProcessor.postProcessBeforeDestruction(audScheduledTasks, SCHEDULED_TASKS);
         return "OK";
     }
 
-    @ApiOperation(value="This is to Start USD scheduler")
+    @ApiOperation(value="This is to Start AUD scheduler")
     @GetMapping(value = "/startAudScheduler")
     public String startAudSchedule() {
         postProcessor.postProcessAfterInitialization(audScheduledTasks, SCHEDULED_TASKS);
+        return "OK";
+    }
+
+    @ApiOperation(value="This is to stop DCX Scheduler")
+    @GetMapping(value = "/stopDcxScheduler")
+    public String stopDcxSchedule() {
+        postProcessor.postProcessBeforeDestruction(dcxScheduledTask, SCHEDULED_TASKS);
+        return "OK";
+    }
+
+    @ApiOperation(value="This is to Start DCX scheduler")
+    @GetMapping(value = "/startDcxScheduler")
+    public String startDcxSchedule() {
+        postProcessor.postProcessAfterInitialization(dcxScheduledTask, SCHEDULED_TASKS);
         return "OK";
     }
     @GetMapping(value = "/listScheduler")
